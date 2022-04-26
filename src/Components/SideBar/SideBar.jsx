@@ -3,10 +3,10 @@ import { SideBarNav, SideBarWrap } from './Styles'
 import { SideBarData } from './SideBarData';
 import SubMenu from './SubMenu';
 
-const SideBar = () => {
+const SideBar = (props) => {
     return (
-        <SideBarNav>
-            <SideBarWrap>
+        <SideBarNav sidebar={props.showMenu}>
+            <SideBarWrap >
                 {
                     SideBarData.map( (item, index) => {
                         return (

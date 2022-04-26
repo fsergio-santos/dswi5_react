@@ -19,4 +19,5 @@ const AppRouter = ({ component:Component, ...rest  }) => {
     )
 }
 
+
 export default AppRouter

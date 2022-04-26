@@ -6,7 +6,7 @@ export const loginSistema = async ( user ) => {
     return (
        banco({
              method:'post',  
-             url:`/login`,
+             url:'/login',
              data:user,
         }).then( (resposta) => {
             return resposta.data

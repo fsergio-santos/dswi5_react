@@ -7,7 +7,6 @@ import AutorListar from '../pages/Autor/Listar';
 import AutorInserir from '../pages/Autor/Inserir';
 
 const Routes = () => {
-     
     return (
         <Router>
           <Switch>

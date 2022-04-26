@@ -3,7 +3,7 @@ import { ContentContainer } from './Style'
 
 const Content = ( props ) => {
     return (
-        <ContentContainer>
+        <ContentContainer sidebar={props.showMenu}>
             { props.children }
         </ContentContainer>
     )

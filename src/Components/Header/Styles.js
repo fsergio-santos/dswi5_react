@@ -8,10 +8,11 @@ export const HeaderContainer = styled.div`
   right: 0;
   top: 0;
   width: 100%;
-  display: flex;
-  z-index: 99;
-  //padding-right: 15px;
-  padding: 12x;
+  display: flex;    
+  z-index: 99;          
+  margin-left: ${({ sidebar }) => ( sidebar ? '250' : '0')}
+  padding-right: 15px;
+  
 `
 
 export const Toogle = styled.div`

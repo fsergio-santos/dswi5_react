@@ -1,9 +1,19 @@
 import React from 'react'
-import { UserLogout } from '../Header/Styles'
+import { UserLogout } from '../Header/Styles';
+import { useHistory } from 'react-router-dom';
+import { logout } from '../../Config/Token';
 
-const Logout = props => {
+const Logout = () => {
+
+    let history = useHistory();
+    
+    const onLogout=()=> {
+        logout(); 
+        history.push("/");
+    }
+
     return (
-        <UserLogout>
+        <UserLogout onClick={()=>onLogout()}>
             <i className="fa fa-sign-out fa-lg"></i>
         </UserLogout>
     )

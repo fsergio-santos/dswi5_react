@@ -11,10 +11,13 @@ export const SideBarNav = styled.aside `
    overflow: auto;
    top: 0;
    bottom:0;
+   left: ${({ sidebar }) => ( sidebar ? '0': '-100%')  };
    transition: 350ms;
    z-index:10;
  
-
+   @media(max-width:768px){
+     left:${({sidebar}) => ( sidebar ? '-100%': '0')  };
+   } 
    
 `
 

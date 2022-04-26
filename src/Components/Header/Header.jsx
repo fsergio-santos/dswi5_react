@@ -3,9 +3,17 @@ import Logout from '../Logout/Logout';
 import { HeaderContainer, Logado, LogoSistema, Profile, Toogle, Username } from './Styles';
 import { getUsername } from '../../Config/Token';
 
-const Header = () => {
+const Header = ({ changeStateMenu }) => {
     
     const [userName, setUserName] = useState("");
+   
+    const [showMenu, setShowMenu] = useState(false);
+
+    const showSideBar = () => {
+        setShowMenu(!showMenu)
+        changeStateMenu(showMenu)
+    }
+
 
     const getUsuario=()=>{
         setUserName(getUsername());
@@ -17,9 +25,9 @@ const Header = () => {
 
     return (
        <Fragment>       
-           <HeaderContainer>
+           <HeaderContainer sidebar={showMenu}>
                  <LogoSistema></LogoSistema>  
-                 <Toogle></Toogle>  
+                 <Toogle onClick={()=>showSideBar()}/>  
                  <Profile>
                      <Logado>Nome:</Logado>
                      <Username>{ userName }</Username>
@@ -29,5 +37,6 @@ const Header = () => {
        </Fragment> 
     )
 }
+
 
 export default Header;
