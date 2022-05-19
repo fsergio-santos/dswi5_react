@@ -5,8 +5,8 @@ import Routes from "./Routes/Routes";
 function App() {
   return (
       <Fragment> 
-        <GlobalStyles/>
-        <Routes/> 
+         <GlobalStyles/>
+         <Routes/> 
       </Fragment>  
   );
 }

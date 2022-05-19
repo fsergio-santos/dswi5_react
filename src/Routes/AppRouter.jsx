@@ -4,7 +4,7 @@ import Layout from '../Components/Layout/Layout';
 
 const isLogged = () => {
     let logged = localStorage.getItem('logged');
-    return logged;
+    return true;
 }
 
 const AppRouter = ({ component:Component, ...rest  }) => {

@@ -5,6 +5,7 @@ import AppRouter from './AppRouter';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import AutorListar from '../pages/Autor/Listar';
 import AutorInserir from '../pages/Autor/Inserir';
+import UsuarioInserir from '../pages/Usuario/Inserir';
 
 const Routes = () => {
     return (
@@ -12,6 +13,7 @@ const Routes = () => {
           <Switch>
                <Route path="/" exact component={Login}/>
                <Route path="/login" exact component={Login}/>
+               <Route path="/usuario/inserir" exact component={UsuarioInserir}/>
                <AppRouter path="/dashboard" component={Dashboard}/>
                <AppRouter path="/autor/listar" component={AutorListar}/>
                <AppRouter path="/autor/inserir" component={AutorInserir}/>

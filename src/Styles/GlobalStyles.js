@@ -88,4 +88,68 @@ export default createGlobalStyle `
   vertical-align: top;
 }
 
+#drop-zone {
+  padding-top: 10px;
+  width: 100%;
+  min-height: 50px;
+  border-radius: 5px;
+  font-family: Arial;
+  position: relative;
+  font-size: 20px;
+  text-align: center;
+
+}
+
+#drop-zone input {
+  cursor: pointer;
+  left: 0px;
+  top: 0px;
+  opacity: 0;
+  color: #7E7E7E;
+}
+
+#drop-zone.mouse-over {
+   border: 3px dashed rgba(0, 0, 0, .3);
+   color: #7E7E7E;
+}
+
+.avatar {
+  width:70%
+  display:block;
+  border-radius: 50%;
+  height: auto;
+  margin: 0 auto;
+}
+
+#clickHereLeft {
+  margin-left: 20%;
+  cursor: pointer;
+  color: white;
+  font-size: 17px;
+  width: 100px;
+  height: 45px; 
+  border-radius: 4px;
+  background-color: #4679BD;
+  padding-top: 10px;
+  float:left;
+}
+
+#clickHereRight {
+  margin-right: 20%;
+  cursor: pointer;
+  color: white;
+  font-size: 17px;
+  width: 100px;
+  height: 45px; 
+  border-radius: 4px;
+  background-color: #ff0000;
+  padding-top: 10px;
+  float:right;
+}
+
+
+
+
+
+
 `
