@@ -1,7 +1,19 @@
 
 import banco from "../Config/Banco";
 
-
+export const createUsuario = async ( usuario ) => {
+    return (
+        banco({
+            method:'post',
+            url:'/usuario/inserir',
+            data:usuario
+        }).then ((resposta)=>{
+            return resposta.data
+        }).catch((errors)=>{
+            return errors.response;
+        })
+    )
+}
 export const postFotoUsuario = async (formData) => {
     return(
         banco({
@@ -17,12 +29,12 @@ export const postFotoUsuario = async (formData) => {
     )
 }
 
-export const deleteFotoUsuario = async (foto) => {
-    console.log(foto)
+export const deleteFotoUsuario = async (fotoCadastrada) => {
     return(
         banco({
             method:'delete',
-            url:`/foto/delete/${foto}`,
+            url:'/foto/delete',
+            data:fotoCadastrada,
         }).then(res=>{
            return res.data;
         })

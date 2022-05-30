@@ -22,9 +22,10 @@ export const GradeSistema = styled.div`
     background: #ffffff;
     border-radius: 6px;
     padding:40px;
-    margin-left: auto;
+    margin-left: 250px;
     margin-right:auto;
     margin: 0 5% 30px;
+    width: (100% - 250px);
 
 `
 

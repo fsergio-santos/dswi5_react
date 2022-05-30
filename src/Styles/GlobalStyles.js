@@ -147,7 +147,26 @@ export default createGlobalStyle `
   float:right;
 }
 
+.fontSize {
+  font-size: 1.2rem;
+  font-weight: 600; 
+}
 
+.input-container {
+   display:flex;
+   width: 100%;
+   margin-bottom:15px;
+}
+
+.icon-input {
+  padding: 10px;
+  background-color: #E5E5E5;
+  color: black;
+  min-width:50px;
+  text-align: center;
+  font-size:17px;
+
+}
 
 
 

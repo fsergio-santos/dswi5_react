@@ -3,7 +3,8 @@ import React, { Fragment, useState } from 'react';
 import { GradeSistema } from '../../Components/Content/Style';
 import { DEFAULT_IMAGEM, SERVIDOR_POST_IMAGEM } from '../../Config/Config';
 import { INIT_USUARIO } from './Usuario';
-import { postFotoUsuario, deleteFotoUsuario } from '../../Service/UsuarioService';
+import { postFotoUsuario, deleteFotoUsuario, createUsuario } from '../../Service/UsuarioService';
+import * as FaIcons from 'react-icons/fa';
 
 const Inserir = () => {
      
@@ -11,7 +12,7 @@ const Inserir = () => {
     const [imagem, setImagem] = useState('');
     const [contentType, setContentType] = useState('');
     const [usuario, setUsuario] = useState(INIT_USUARIO);
-
+    
     
     const selectFile = async (e) =>{
         e.preventDefault();
@@ -25,11 +26,7 @@ const Inserir = () => {
             let formData = new FormData();
             formData.append("id", document.getElementById("id").value);
             formData.append("foto",fileName);
-
             const data_foto = await postFotoUsuario(formData);
-            
-            console.log(data_foto)
-
             setImagem(data_foto.nomeArquivo);
             setContentType(data_foto.contentType);
             setFoto(data_foto.nomeArquivo);
@@ -39,19 +36,36 @@ const Inserir = () => {
     }
 
     const excluirFoto = async (e) => {
-        e.preventDefault();   
+        e.preventDefault();  
+        let fotoCadastrada = {
+            'id':document.getElementById("id").value,
+            'foto':foto,
+        }
+        const data_foto = await deleteFotoUsuario(fotoCadastrada);
+        setImagem(data_foto.nomeArquivo);
+        setContentType(data_foto.contentType);
+        setFoto(data_foto.nomeArquivo);
       
-        const data_foto = await deleteFotoUsuario(foto);
-        
-
     }
+    
+    const onChangeUsuario = ( e ) => {
+        const { name, value } = e.target;
+        setUsuario({ ...usuario, [name]:value})
+    } 
 
+    const onSubmitUsuario = async (e) => {
+         e.preventDefault();
+         usuario.foto = foto;
+         usuario.contentType = contentType;
+         const data = await createUsuario(usuario);
+         
+    } 
 
     return (
         <Fragment>
             <GradeSistema>
                 <div className='container'>
-                   <form id="form">
+                   <form id="form" onSubmit={(e)=>onSubmitUsuario(e)}>
                     <div className="row">
                         <div className='col-sm-4'>
                             <div className='row'>
@@ -104,26 +118,90 @@ const Inserir = () => {
                             </div>
                         </div>
                         <div className='col-sm-8'>
-                            <div className='row'>
+                            <div className='row mt-4'>
                                 <div className='col-xs-12 col-sm-12 col-md-12'>
                                      <div className='form-group'>
-                                         <label className='control-label'>Nome:</label>
-                                         <input type='text'
-                                                name="username"
-                                                id="username"
-                                                className='form-control'
-                                                value={usuario.username}/>
+                                         <label className='control-label fontSize'>Nome:</label>
+                                         <div className='input-container'>
+                                            <i className='icon-input' ><FaIcons.FaUserAlt/></i> 
+                                            <input type='text'
+                                                    name="username"
+                                                    id="username"
+                                                    className='form-control'
+                                                    value={usuario.username}
+                                                    onChange={(e)=> onChangeUsuario(e)}/>
+                                         </div>       
 
                                      </div>
                                 </div>
                             </div>
+                            <div className='row mt-4'>
+                                <div className='col-xs-12 col-sm-12 col-md-12'>
+                                     <div className='form-group'>
+                                         <label className='control-label fontSize'>E-mail:</label>
+                                         <div className='input-container'>
+                                            <i className='icon-input' ><FaIcons.FaEnvelope/></i>
+                                            <input type='text'
+                                                    name="email"
+                                                    id="email"
+                                                    className='form-control'
+                                                    value={usuario.email}
+                                                    onChange={(e)=> onChangeUsuario(e)}/>
+                                          </div>  
+                                     </div>
+                                </div>
+                            </div>
+                            <div className='row mt-4'>
+                                <div className='col-xs-12 col-sm-12 col-md-12'>
+                                     <div className='form-group'>
+                                         <label className='control-label fontSize'>Senha:</label>
+                                         <div className='input-container'>
+                                            <i className='icon-input' ><FaIcons.FaLock/></i>
+                                            <input type='password'
+                                                name="password"
+                                                id="password"
+                                                className='form-control'
+                                                value={usuario.password}
+                                                onChange={(e)=> onChangeUsuario(e)}/>
+                                         </div>   
+                                     </div>
+                                </div>
+                            </div>
+                            <div className='row mt-4'>
+                                <div className='col-xs-12 col-sm-12 col-md-12'>
+                                     <div className='form-group'>
+                                         <label className='control-label fontSize'>Confirmar Senha:</label>
+                                         <div className='input-container'>
+                                            <i className='icon-input' ><FaIcons.FaLock/></i>
+                                            <input type='password'
+                                                name="confirmPassword"
+                                                id="confirmPassword"
+                                                className='form-control'
+                                                value={usuario.confirmPassword}
+                                                onChange={(e)=> onChangeUsuario(e)}/>
+                                            </div>
+                                     </div>
+                                </div>
+                            </div>
                             <input type="hidden" id="id"/>
-                            
+                            <div className='row mt-4'>
+                                <div className='col-xs-12 col-sm-6 form-group'>
+                                    <button className='btn btn-success btn-lg form-control'
+                                            >
+                                        Salvar
+                                    </button> 
+                                </div>
+                                <div className='cl-xs-12 col-sm-6 form-group'>
+                                    <a type="button" className='btn btn-secondary btn-lg form-control'>
+                                       Cancelar
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+                        
                     </div>
-
-
-                    </form>
+                  </form>
+                  
                 </div>
              
           
