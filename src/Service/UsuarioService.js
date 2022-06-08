@@ -1,7 +1,22 @@
 
 import banco from "../Config/Banco";
 
+
+export const findUsuarioById = async ( id ) => {
+    return (
+        banco({
+             method:'get',  
+             url:`/usuario/buscar/${id}`,
+        }).then( (resposta) => {
+            return resposta.data
+        }).catch( (errors) => {   
+            return errors.response;
+        })
+    )
+}
+
 export const createUsuario = async ( usuario ) => {
+    console.log(usuario);
     return (
         banco({
             method:'post',
