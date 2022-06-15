@@ -5,6 +5,7 @@ import { INIT_USUARIO } from './Usuario';
 import { postFotoUsuario, deleteFotoUsuario, createUsuario, findUsuarioById } from '../../Service/UsuarioService';
 import * as FaIcons from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
+import ShowRoles from './ShowRoles';
 
 const Alterar = () => {
      
@@ -14,7 +15,8 @@ const Alterar = () => {
     const [imagem, setImagem] = useState('');
     const [contentType, setContentType] = useState('');
     const [usuario, setUsuario] = useState(INIT_USUARIO);
-    
+    const [showRoles, setShowRoles ] = useState(false); 
+
     useEffect(()=>{
         async function loadUsuario(){
             const data = await findUsuarioById(id);
@@ -55,10 +57,10 @@ const Alterar = () => {
             'foto':foto,
         }
         const data_foto = await deleteFotoUsuario(fotoCadastrada);
-        setImagem(data_foto.nomeArquivo);
-        setContentType(data_foto.contentType);
-        setFoto(data_foto.nomeArquivo);
-      
+        setImagem('');
+        setContentType('');
+        setFoto('');
+        document.getElementById('fileInput').value = '';
     }
     
     const onChangeUsuario = ( e ) => {
@@ -71,8 +73,35 @@ const Alterar = () => {
          usuario.foto = foto;
          usuario.contentType = contentType;
          const data = await createUsuario(usuario);
-         console.log(data)
+         setImagem('');
+         setContentType('');
+         setFoto('');
+         setUsuario(INIT_USUARIO);
+         document.getElementById('fileInput').value = '';
     } 
+
+    const adicionarRoles = (e) => {
+        setShowRoles(true)
+    }
+
+    const onShowModal = () => {
+      setShowRoles(false)
+    }
+
+    const onChangeRoles = (e) => {
+        const { value } = e.target; 
+        let index = 0;
+        for ( let i = 0; i < usuario.roles.length; i++){
+           if ( usuario.roles[i].id == value ){
+                usuario.roles.splice(i,1)
+                index = 1;
+           }
+        }
+        if ( index == 0 ){
+          usuario.roles.push({id:value})
+        }
+        
+    }
 
     return (
         <Fragment>
@@ -196,7 +225,19 @@ const Alterar = () => {
                                      </div>
                                 </div>
                             </div>
-                            <input type="hidden" id="id"/>
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-12 col-md-6">
+                                    <div className="form-group">
+                                        <label className="control-label fontSize">Roles:</label>
+                                        <input type="button"
+                                                id="role"
+                                                value="Cadastrar Roles do Usuário"
+                                                onClick={(e) => adicionarRoles(e)}
+                                                className="form-control btn btn-warning" />
+                                    </div>  
+                                </div>
+                            </div>
+                            <input type="hidden" id="id" value={id}/>
                             <div className='row mt-4'>
                                 <div className='col-xs-12 col-sm-6 form-group'>
                                     <button className='btn btn-success btn-lg form-control'
@@ -219,6 +260,15 @@ const Alterar = () => {
              
           
             </GradeSistema>
+            { 
+              showRoles ? (
+                    <ShowRoles  showModal={showRoles}
+                          dadosRolesCadastrados={usuario.roles}
+                          onShowModal={onShowModal}
+                          onChangeChecked={onChangeRoles}
+                          operacao={false}/>
+               ): null 
+            }
         </Fragment>
     )
 

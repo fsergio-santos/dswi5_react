@@ -63,8 +63,6 @@ const ShowRoles = ({showModal, dadosRolesCadastrados, onShowModal, onChangeCheck
             })
         } 
 
-
-
         if (dadosRolesCadastrados){ 
             for (let i = 0; i < Roles.length; i++ ){
                 for ( let j = 0; j < dadosRolesCadastrados.length; j++ ){

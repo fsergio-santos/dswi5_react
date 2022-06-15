@@ -6,7 +6,7 @@ import { INIT_USUARIO } from './Usuario';
 import { postFotoUsuario, deleteFotoUsuario, createUsuario } from '../../Service/UsuarioService';
 import * as FaIcons from 'react-icons/fa';
 import ShowRoles from './ShowRoles';
-
+import Alert from '../../Components/alert/Alert';
 
 
 const Inserir = () => {
@@ -16,6 +16,7 @@ const Inserir = () => {
     const [contentType, setContentType] = useState('');
     const [usuario, setUsuario] = useState(INIT_USUARIO);
     const [showRoles, setShowRoles ] = useState(false); 
+    const [show, setShow] = useState(false);
     
     const selectFile = async (e) =>{
         e.preventDefault();
@@ -27,7 +28,7 @@ const Inserir = () => {
             }
             reader.readAsDataURL(fileName);
             let formData = new FormData();
-            formData.append("id", document.getElementById("id").value);
+            formData.append("id", 0);
             formData.append("foto",fileName);
             const data_foto = await postFotoUsuario(formData);
             setImagem(data_foto.nomeArquivo);
@@ -41,14 +42,13 @@ const Inserir = () => {
     const excluirFoto = async (e) => {
         e.preventDefault();  
         let fotoCadastrada = {
-            'id':document.getElementById("id").value,
+            'id': 0,
             'foto':foto,
         }
         const data_foto = await deleteFotoUsuario(fotoCadastrada);
-        setImagem(data_foto.nomeArquivo);
-        setContentType(data_foto.contentType);
-        setFoto(data_foto.nomeArquivo);
-      
+        setImagem('');
+        setContentType('');
+        setFoto('');
     }
     
     const onChangeUsuario = ( e ) => {
@@ -58,9 +58,15 @@ const Inserir = () => {
 
     const onSubmitUsuario = async (e) => {
          e.preventDefault();
-         usuario.foto = foto;
-         usuario.contentType = contentType;
-         const data = await createUsuario(usuario);
+         //usuario.foto = foto;
+         //usuario.contentType = contentType;
+         //const data = await createUsuario(usuario);
+         setShow(!show);
+         //document.getElementById("fileInput").value='';
+         //setUsuario(INIT_USUARIO);
+         //setFoto('');
+         //setImagem('');
+         //setContentType('');
      } 
 
     const adicionarRoles = (e) => {
@@ -73,11 +79,7 @@ const Inserir = () => {
 
 
     const onChangeRoles = (e) => {
-              
       const { value } = e.target; 
-
-      console.log(value)
-
       let index = 0;
       for ( let i = 0; i < usuario.roles.length; i++){
          if ( usuario.roles[i].id == value ){
@@ -88,7 +90,7 @@ const Inserir = () => {
       if ( index == 0 ){
         usuario.roles.push({id:value})
       }
-      console.log(usuario.roles); 
+      
     }
     
     
@@ -96,6 +98,14 @@ const Inserir = () => {
         <Fragment>
             <GradeSistema>
                 <div className='container'>
+                   {
+                       show && (
+                           <Alert mensagem="Registro cadastrado com sucesso!"
+                                show={true}
+                                tipo='danger'
+                                setShow={()=>setShow(false)}/>
+                       )
+                   } 
                    <form id="form" onSubmit={(e)=>onSubmitUsuario(e)}>
                     <div className="row">
                         <div className='col-sm-4'>
@@ -216,17 +226,17 @@ const Inserir = () => {
                             </div>
                             <div className="row">
                                 <div className="col-xs-12 col-sm-12 col-md-6">
-                                    <div className="form-group">
-                                        <label className="form-label">Roles:</label>
-                                        <input type="button"
-                                                id="role"
-                                                value="Cadastrar Roles do Usuário"
+                                    <div className='form-group'>
+                                        <label className='control-label fontSize'>Roles:</label>
+                                        <input type='button'
+                                                id='role'
+                                                value='Cadastrar Roles do Usuário'
                                                 onClick={(e) => adicionarRoles(e)}
-                                                className="form-control" />
+                                                className='form-control btn btn-warning' />
                                     </div>  
                                 </div>
                             </div>
-                            <input type="hidden" id="id"/>
+                            <input type="hidden" id="id" />
                             <div className='row mt-4'>
                                 <div className='col-xs-12 col-sm-6 form-group'>
                                     <button className='btn btn-success btn-lg form-control'>
@@ -255,8 +265,8 @@ const Inserir = () => {
                           onShowModal={onShowModal}
                           onChangeChecked={onChangeRoles}
                           operacao={false}/>
-            ): null 
-          }
+              ): null 
+            }
         </Fragment>
     )
 

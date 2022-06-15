@@ -1,8 +1,8 @@
 
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { LoginContent } from "../../Components/Login/styled";
-import { setUsuario } from "../../Config/Token";
+import { setUsuario, logout } from "../../Config/Token";
 import { loginSistema } from "../../Service/LoginService";
 import { INIT_LOGIN } from "./LoginSystem";
     
@@ -13,6 +13,13 @@ const Login = () => {
     const [ user, setUser ] = useState(INIT_LOGIN);
     
     let history = useHistory();
+
+    useEffect(()=>{
+        function clearLogin(){
+          logout()
+        }
+        clearLogin()  
+    },[]);
 
     async function onLogin( e, email, password ) {
         e.preventDefault();

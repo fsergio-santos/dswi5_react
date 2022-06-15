@@ -168,6 +168,37 @@ export default createGlobalStyle `
 
 }
 
+.show-image {
+  font-weight: 700;
+  float: left;
+  margin-right: 15px;
+  width: 30px;
+  height: 30px;
+}
+
+.show-message {
+  font-weight: 700;
+  font-size: 20px;
+  text-align: left;
+  margin-top:0;
+  margin-bottom: 6px;
+  width: 300px;
+  height:18px;
+}
+
+.closebtn {
+  color: red;
+  font-weight: 800;
+  float: right;
+  font-size:25px;
+  cursor:pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color:black;
+}
+
 
 
 
